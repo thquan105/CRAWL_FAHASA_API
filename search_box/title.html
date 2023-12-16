@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Search Results</title>
+    <link rel="stylesheet" href="{{ url_for('static', path='bootstrap/css/bootstrap.min.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', path='style-title.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+        integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+<body style="background-image: linear-gradient(-20deg, #00cdac 0%, #8ddad5 100%); margin: 150px auto;">
+    <section class="section">
+        <div class="container">
+            <div class="row justify-content-center section-heading">
+                <div class="col-lg-6 text-center">
+                    <p class="fs-6 m-0">NHÓM 666</p>
+                    <h1 class="mt-2">KẾT QUẢ TÌM KIẾM</h1>
+                    <h3>Số SP tìm được: {{ total_count }}</h3>
+                </div>
+            </div>
+            <div class="row g-3 g-lg-4">
+                <!-- Product Box -->
+                {% for result in results %}
+                <div class="col-6 col-lg-3">
+                    <div class="product-card-10">
+                        <div class="product-card-image">
+                            <div class="badge-ribbon"><span class="badge bg-danger">{{ result[6] }}%</span></div>
+                            <div class="product-media">
+                                <a href="{{ result[4] }}">
+                                    <img class="img-fluid" src="{{ result[5] }}" title="{{ result[1] }}" alt="{{ result[1] }}">
+                                </a>
+                            </div>
+                        </div>
+                        <div class="product-card-info">
+                            <div class="rating-star text"><i class="bi bi-star-fill active"></i> <i
+                                    class="bi bi-star-fill active"></i> <i class="bi bi-star-fill active"></i> <i
+                                    class="bi bi-star-fill active"></i> <i class="bi bi-star"></i></div>
+
+                            <h6 class="product-title"><a href="{{ result[4] }}">{{ result[1] }}</a></h6>
+
+                            <div class="product-price">
+                                <del class="fs-sm text-muted">{{ result[2] }} đ</del>
+                                <span class="text-primary">{{ result[3] }} đ</span>                                
+                            </div>
+                            <div class="product-action">
+                                <a href="#" class="btn"><i class="fa fa-heart"></i> </a>
+                                <a href="#" class="btn"><i class="fa fa-shopping-cart"></i></a>
+                                <a href="#" class="btn"><i class="fa fa-trash"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+                <!-- End Product Box -->
+            </div>
+        </div>
+    </section>
+    <script src="{{ url_for('static', path='bootstrap/js/bootstrap.js') }}"></script>
+    <script defer=""
+        src="https://static.cloudflareinsights.com/beacon.min.js/v52afc6f149f6479b8c77fa569edb01181681764108816"
+        integrity="sha512-jGCTpDpBAYDGNYR5ztKt4BQPGef1P0giN6ZGVUi835kFF88FOmmn8jBQWNgrNd8g/Yu421NdgWhwQoaOPFflDw=="
+        data-cf-beacon="{&quot;rayId&quot;:&quot;7ba6b5a54c871faf&quot;,&quot;token&quot;:&quot;cd0b4b3a733644fc843ef0b185f98241&quot;,&quot;version&quot;:&quot;2023.3.0&quot;,&quot;si&quot;:100}"
+        crossorigin="anonymous"></script>
+
+
+    <div id="rememberry__extension__root" style="all: unset;"></div>
+</body>
+
+</html>
