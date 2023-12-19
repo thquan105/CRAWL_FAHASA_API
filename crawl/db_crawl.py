@@ -3,8 +3,6 @@ import sys
 import requests
 import mysql.connector
 import json
-import schedule
-import time
 # add the directory containing the db module to the Python path
 db_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', ''))
 sys.path.append(db_path)
@@ -32,6 +30,9 @@ def get_data():
     page_num = 1
     try:
         while True:
+            # Demo 20 page 
+            if page_num > 20:
+                break
             params = {'category_id': 2, 'currentPage': page_num}
             response = requests.get(api_url,headers=headers,params=params)
             
@@ -41,21 +42,12 @@ def get_data():
                 break
 
             for item in api_data:
-                insert_data(item)
-                
+                insert_data(item)  
+
             page_num += 1
     except Exception as e:
             print("\n\nSập !!")
             
-
-# Lập lịch công việc cào dữ liệu hàng ngày lúc 00:00
-# schedule.every().day.at("00:00").do(get_data)
-
-# Vòng lặp để giữ chương trình chạy liên tục
-# while True:
-#     schedule.run_pending()
-#     time.sleep(1)
 if __name__ == '__main__':
-    # crawl_auto()
     get_data()
 

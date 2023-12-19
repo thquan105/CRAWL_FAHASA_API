@@ -88,6 +88,105 @@ def insert_data(data):
         print("Failed to insert record into MySQL table: {}".format(error))
         return False
 
+def search_title(title):
+    try:
+        # connect to the database
+        conn = mysql.connector.connect(
+            host=LOCALHOST,
+            user=USER,
+            password=PASSWORD,
+            database=DATABASE,
+            port=PORT
+        )
+
+        cursor = conn.cursor()
+
+        # define the search query
+        query = f"SELECT * FROM product WHERE product_name LIKE '%{title}%'"
+
+        # execute the query
+        cursor.execute(query)
+
+        # get the results
+        results = cursor.fetchall()
+
+        # extract the titles from the results
+        titles = [result[1] for result in results]
+
+        cursor.close()
+        conn.close()
+
+        return titles
+    except Exception as e:
+        print(e)
+        return []
+
+def count_product(title = None):
+    try:
+        # connect to the database
+        conn = mysql.connector.connect(
+            host=LOCALHOST,
+            user=USER,
+            password=PASSWORD,
+            database=DATABASE,
+            port=PORT
+        )
+
+        cursor = conn.cursor()
+
+        if title is not None:
+            query = f"SELECT COUNT(*) FROM product WHERE product_name LIKE '%{title}%'"
+        else:
+            query = "SELECT COUNT(*) FROM product"
+        # execute the select statement
+        cursor.execute(query)
+
+        # fetch the record
+        record = cursor.fetchone()
+
+        # check if the record exists
+        if record is not None:
+            return record[0]
+        else:
+            return 0
+
+    except mysql.connector.Error as error:
+        print("Failed to check record into MySQL table: {}".format(error))
+        return 0
+
+def search_product(title):
+    try:
+        # connect to the database
+        conn = mysql.connector.connect(
+            host=LOCALHOST,
+            user=USER,
+            password=PASSWORD,
+            database=DATABASE,
+            port=PORT
+        )
+
+        cursor = conn.cursor()
+
+        # define the search query
+        query = f"SELECT * FROM product WHERE product_name LIKE '%{title}%'"
+
+        # execute the query
+        cursor.execute(query)
+
+        # get the results
+        results = cursor.fetchall()
+
+        # extract the titles from the results
+        titles = [result for result in results]
+
+        cursor.close()
+        conn.close()
+
+        return titles
+    except Exception as e:
+        print(e)
+        return []
+
 def edit_product(product_id, data):
     try:
         # connect to the database
